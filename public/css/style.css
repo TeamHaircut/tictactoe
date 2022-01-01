@@ -2,13 +2,16 @@ body {
   font-family: helvetica;
 }
 
-@font-face {
-	font-family:"Gufftron-Regular";
-	src:url("Gufftron-Regular.ttf") format("truetype");
-	font-weight:normal;font-style:normal;
-}
-/**/
-/* Fonts for everything generic */
-div, option, p, tr, th, .normalFont {
-	font-family: "Gufftron-Regular";
-}
+.grid-container {
+	display: grid;
+	grid-template-columns: auto auto auto;
+	background-color: #2196F3;
+	padding: 10px;
+  }
+  .grid-item {
+	background-color: rgba(255, 255, 255, 0.8);
+	border: 1px solid rgba(0, 0, 0, 0.8);
+	padding: 20px;
+	font-size: 30px;
+	text-align: center;
+  }
