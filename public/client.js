@@ -1,5 +1,9 @@
+const player1Info = document.getElementById('player1Info');
+const player2Info = document.getElementById('player2Info');
+
 const grid1 = document.getElementById('grid1');
 grid1.addEventListener("click", function() {
+	//socket.emit('markSquare', {socket, grid1});
 	markSquare(grid1);
 	console.log("grid1 clicked");
 });
@@ -56,8 +60,16 @@ const socket = io('http://teamhaircut.org:5001', {
 	'maxReconnectionAttempts': Infinity
 });
 
-socket.emit('joinRoom');
+socket.emit('joinRoom',{room:"MYROOM"});
 
 socket.on('reconnecting', () => {
 		socket.emit('rejoinRoom');
+});
+
+socket.on('setPlayer1', (info) => {
+	player1Info.innerHTML = info.message + " has joined";
+});
+
+socket.on('setPlayer2', (info) => {
+	player2Info.innerHTML = info.message + " has joined";
 });
