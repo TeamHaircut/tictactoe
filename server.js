@@ -6,13 +6,13 @@ const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
 const socket = require('socket.io');
-const {myUserFunction} = require('./server_utils/usermanager');
+const {addUser, getPlayer1, getPlayer2} = require('./server_utils/usermanager');
 const {myGameFunction} = require('./server_utils/gamemanager');
 const { Console } = require('console');
 const app = express();
 
 // Socket setup & pass server
-const PORT = 5000 || process.env.PORT;
+const PORT = 5001 || process.env.PORT;
 const server = app.listen(PORT, function(err) {
  
     if (!err)
@@ -31,9 +31,29 @@ app.use(express.static(path.join(__dirname, '/public')));
 //Run when client connects
 io.on('connection', socket => {
 
-	socket.on('joinRoom', () => {
-			
+	socket.on('joinRoom', ({room}) => {
+    console.log(room);
+    socket.join(room);
+    addUser(socket.id);
+    
+    if(getPlayer1()!="") {
+      io.to(room).emit('setPlayer1', {
+        message: getPlayer1()
+      });	
+    }
+
+    if(getPlayer2()!="") {
+      io.to(room).emit('setPlayer2', {
+        message: getPlayer2()
+      });	
+    }
+
 	});
+
+  //socket.on('markSquare', (id, gridPos) => {
+  //  console.log(id);
+  //  console.log(gridPos);
+	//});
 
 	socket.on('rejoinRoom', () => {
 
