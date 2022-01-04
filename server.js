@@ -6,8 +6,8 @@ const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
 const socket = require('socket.io');
-const {addUser, getPlayer1, getPlayer2} = require('./server_utils/usermanager');
-const {setRoomGrid, getRoomGrid} = require('./server_utils/gamemanager');
+const {addUser, getPlayer1, getPlayer2, getRoom} = require('./server_utils/usermanager');
+const {setRoomGrid, getRoomGrid, reset} = require('./server_utils/gamemanager');
 const { Console } = require('console');
 const app = express();
 
@@ -32,9 +32,8 @@ app.use(express.static(path.join(__dirname, '/public')));
 io.on('connection', socket => {
 
 	socket.on('joinRoom', ({room}) => {
-    console.log(room);
     socket.join(room);
-    addUser(socket.id);
+    addUser(socket.id, room);
     
     if(getPlayer1()!="") {
       io.to(room).emit('setPlayer1', {
@@ -51,10 +50,14 @@ io.on('connection', socket => {
 	});
 
   socket.on('markSquare', ({gridID}) => {
-    console.log("Here");
     setRoomGrid(socket.id, gridID);
-    io.to("MYROOM").emit('updateGrid', getRoomGrid());
+    io.to(getRoom()).emit('updateGrid', getRoomGrid());
 	});
+
+  socket.on('reset', () => {
+    reset();
+    io.to(getRoom()).emit('updateGrid', getRoomGrid());
+  });
 
 	socket.on('rejoinRoom', () => {
 
