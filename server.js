@@ -7,7 +7,7 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const socket = require('socket.io');
 const {addUser, getPlayer1, getPlayer2} = require('./server_utils/usermanager');
-const {myGameFunction} = require('./server_utils/gamemanager');
+const {setRoomGrid, getRoomGrid} = require('./server_utils/gamemanager');
 const { Console } = require('console');
 const app = express();
 
@@ -50,10 +50,11 @@ io.on('connection', socket => {
 
 	});
 
-  //socket.on('markSquare', (id, gridPos) => {
-  //  console.log(id);
-  //  console.log(gridPos);
-	//});
+  socket.on('markSquare', ({gridID}) => {
+    console.log("Here");
+    setRoomGrid(socket.id, gridID);
+    io.to("MYROOM").emit('updateGrid', getRoomGrid());
+	});
 
 	socket.on('rejoinRoom', () => {
 
