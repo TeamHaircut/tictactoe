@@ -82,6 +82,8 @@ socket.on('setPlayer2', (info) => {
 	player2Info.innerHTML = info.message + " has joined";
 });
 
-socket.on('updateGrid', (roomGrid) => {
-	updateRoomGrid(roomGrid);
+socket.on('updateGrid', ({roomGrid, last}) => {
+	//console.log(last);
+	console.log(roomGrid);
+	updateRoomGrid(roomGrid, last);
 });

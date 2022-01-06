@@ -6,7 +6,9 @@ body {
 	display: grid;
 	grid-template-columns: auto auto auto;
 	background-color: #2196F3;
-	padding: 10px;
+	padding: 0px;
+	width: 17em;
+	height: 17em;
   }
   .grid-item {
 	background-color: rgba(255, 255, 255, 0.8);
@@ -14,4 +16,6 @@ body {
 	padding: 20px;
 	font-size: 30px;
 	text-align: center;
+	width: 3em;
+	height: 3em;
   }

@@ -51,12 +51,13 @@ io.on('connection', socket => {
 
   socket.on('markSquare', ({gridID}) => {
     setRoomGrid(socket.id, gridID);
-    io.to(getRoom()).emit('updateGrid', getRoomGrid());
+    var g = gridID
+    io.to(getRoom()).emit('updateGrid', {roomGrid: getRoomGrid(), last: g});
 	});
 
   socket.on('reset', () => {
     reset();
-    io.to(getRoom()).emit('updateGrid', getRoomGrid());
+    io.to(getRoom()).emit('updateGrid', {roomGrid: getRoomGrid(), last: gridID});
   });
 
 	socket.on('rejoinRoom', () => {
