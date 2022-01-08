@@ -50,13 +50,17 @@ io.on('connection', socket => {
 	});
 
   socket.on('markSquare', ({gridID}) => {
-    setRoomGrid(socket.id, gridID);
+    var flip = setRoomGrid(socket.id, gridID);
     var g = gridID
-    io.to(getRoom()).emit('updateGrid', {roomGrid: getRoomGrid(), last: g});
+    if(flip){
+      io.to(getRoom()).emit('updateGrid', {roomGrid: getRoomGrid(), last: g});
+    }
+
 	});
 
   socket.on('reset', () => {
     reset();
+    var gridID = "";
     io.to(getRoom()).emit('updateGrid', {roomGrid: getRoomGrid(), last: gridID});
   });
 

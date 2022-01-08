@@ -1,5 +1,6 @@
 const { STATES } = require('mongoose');
 const {anotherFunction} = require('./blankmanager');
+const { getPlayer2 } = require('./usermanager');
 
 var markX = "";
 var markO = "";
@@ -35,8 +36,10 @@ function setMark(id) {
     markX = id;
     turn = markX;
   } else if(markO=="") {
-    markO = id;
-    turn = markO;
+    if(markX!=id) {
+      markO = id;
+      turn = markO;
+    }
   }
 }
 
@@ -80,6 +83,7 @@ function checkForWin(roomGrid) {
 }
 
 function setRoomGrid(id, gridPos) {
+  var flip = false;
   setMark(id);
   var mark = getMark(id);
   var pos=0;
@@ -93,23 +97,19 @@ function setRoomGrid(id, gridPos) {
   if (gridPos=="grid8") {pos=7;}
   if (gridPos=="grid9") {pos=8;}
 
-  console.log("id    "+id);
-  console.log("markX "+markX);
-  console.log("markO "+markO);
-  console.log("turn  "+turn);
-  if(roomGrid[pos]=="" && id==turn && gameover==false) {
+  if(roomGrid[pos]=="" && id==turn && gameover==false && turn!="" && getPlayer2()!="") {
+    flip = true;
     roomGrid[pos]=mark;
     if(turn==markX) {
       turn = markO;
     } else if(turn=markO) {
       turn = markX;
     }
+
+    
   }
   gameover = checkForWin(roomGrid);
-  console.log(gameover);
-
-  
-
+  return flip;
 }
 
 module.exports = {

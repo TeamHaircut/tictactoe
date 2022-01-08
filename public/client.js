@@ -1,6 +1,8 @@
 const player1Info = document.getElementById('player1Info');
 const player2Info = document.getElementById('player2Info');
 
+const theGrid = document.getElementById('theGrid');
+
 const grid1 = document.getElementById('grid1');
 grid1.addEventListener("click", function() {
 	const gridID = grid1.id;
@@ -57,7 +59,6 @@ grid9.addEventListener("click", function() {
 
 const restartBtn = document.getElementById('restartBtn');
 restartBtn.addEventListener("click", function() {
-	console.log("restartBtn clicked");
 	socket.emit('reset');
 });
 
@@ -75,15 +76,14 @@ socket.on('reconnecting', () => {
 });
 
 socket.on('setPlayer1', (info) => {
-	player1Info.innerHTML = info.message + " has joined";
+	//info.message
+	player1Info.innerHTML = " Player 1 has joined";
 });
 
 socket.on('setPlayer2', (info) => {
-	player2Info.innerHTML = info.message + " has joined";
+	player2Info.innerHTML = " Player 2 has joined";
 });
 
 socket.on('updateGrid', ({roomGrid, last}) => {
-	//console.log(last);
-	console.log(roomGrid);
 	updateRoomGrid(roomGrid, last);
 });

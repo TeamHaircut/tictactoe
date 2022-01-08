@@ -7,7 +7,6 @@ var room = "";
 function addUser(id, userroom) {
   room = userroom;
   users.push(id);
-  console.log(users.length);
   if(users.length==1) {
     player1=id;
   } else if (users.length==2) {

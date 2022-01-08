@@ -3,8 +3,7 @@ function markSquare(square) {
 };
 
 function updateRoomGrid(roomGrid, last) {
-    console.log(last);
-    console.log(roomGrid);
+    theGrid.classList.remove('animate__animated', 'animate__flip');
     if(last=="grid1") {
         grid1.classList.add('animate__animated', 'animate__flip');
     } else if(last=="grid2"){
@@ -15,7 +14,7 @@ function updateRoomGrid(roomGrid, last) {
         grid4.classList.add('animate__animated', 'animate__flip');
     } else if(last=="grid5"){
         grid5.classList.add('animate__animated', 'animate__flip');
-    } else if(last=="grid4"){
+    } else if(last=="grid6"){
         grid6.classList.add('animate__animated', 'animate__flip');
     } else if(last=="grid7"){
         grid7.classList.add('animate__animated', 'animate__flip');
@@ -23,6 +22,17 @@ function updateRoomGrid(roomGrid, last) {
         grid8.classList.add('animate__animated', 'animate__flip');
     } else if(last=="grid9"){
         grid9.classList.add('animate__animated', 'animate__flip');
+    } else if(last=="") {
+        theGrid.classList.add('animate__animated', 'animate__flip');
+        grid1.classList.remove('animate__animated', 'animate__flip');
+        grid2.classList.remove('animate__animated', 'animate__flip');
+        grid3.classList.remove('animate__animated', 'animate__flip');
+        grid4.classList.remove('animate__animated', 'animate__flip');
+        grid5.classList.remove('animate__animated', 'animate__flip');
+        grid6.classList.remove('animate__animated', 'animate__flip');
+        grid7.classList.remove('animate__animated', 'animate__flip');
+        grid8.classList.remove('animate__animated', 'animate__flip');
+        grid9.classList.remove('animate__animated', 'animate__flip');
     }
     
     grid1.innerHTML=roomGrid[0];
