@@ -1,2 +1,2 @@
 # tictactoe
-simple nodejs tictactoe game.
+simple nodejs tictactoe game
